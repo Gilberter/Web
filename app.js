@@ -29,11 +29,7 @@ BlogPosts.find().then(posts => {
 }).catch(err => {console.log(err);
 })
 var entries = [];
-var log_in = [];
-var verified = false;
 app.locals.entries = entries;
-app.locals.log_in = log_in;
-app.locals.verified = verified;
 
 
 app.get('/',(req,res)=>{

@@ -21,6 +21,7 @@
     <%if (entries.length){ %>
       <% entries.forEach(entry => { %> 
         <div class="box" user_id="<%= user_id%>" id_box="<%= entry.id  %>">
+          <p>User: <%= entry.user_id %></p>
           <p><%= entry.title %></p>
           <p><%= entry.content %></p>
         </div>
@@ -46,10 +47,6 @@
           fetch(`/delete-post/${box.getAttribute('id_box')}`,{method:"delete"})
           .then(res => {
             if(res.ok){
-              const index = entries.findIndex((element) => {
-                element.id == box.getAttribute('id_box')
-              })
-              entries.splice(index);
               box.remove();
             }
           })
