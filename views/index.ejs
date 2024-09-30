@@ -4,21 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <h1>Blog!</h1>
-  <a href='/add-Post'>Add one!!</a>
-  <%if (entries.length){ %>
-    <% entries.forEach(entry => { %>
-      <div>
-        <p><%= entry.title %></p>
-        <p><%= entry.content %></p>
-      </div>
-    <% }) %>
-  <%} else {  %>
-    <p>Add a post</p>
-  <%} %>
+  <header>
+    <h1>Blog!</h1>
+    <%if (user_id == "") { %>
+      <a href="/log-in">Iniciar Seccion</a>
+    <%} else { %>
+      <button user="<%= user_id%>" id="button-add-post">Add Post</button>
+    <%} %>
+    
+  </header>
   
+  <div class="container">
+    <%if (entries.length){ %>
+      <% entries.forEach(entry => { %> 
+        <div class="box" user_id="<%= user_id%>" id_box="<%= entry.id  %>">
+          <p><%= entry.title %></p>
+          <p><%= entry.content %></p>
+        </div>
+      <% }) %>
+    <%} else {  %>
+      <p>Add a post</p>
+    <%} %>
+</div>
+<script>
+  const buttonpost = document.querySelector("#button-add-post");
+  buttonpost.addEventListener('click', ()=>{
+    const user = buttonpost.getAttribute('user')
+    window.location.href = `/add-Post/${user}`;
+  })
+  document.querySelectorAll('.box').forEach(box => {
+    fetch(`/get-blogpost/${box.getAttribute('id_box')}/${box.getAttribute('user_id')}`)
+    .then(res => {
+      if(res.ok){
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Eliminar";
+        box.appendChild(deleteButton);
+        deleteButton.addEventListener(("click"),() => {
+          fetch(`/delete-post/${box.getAttribute('id_box')}`,{method:"delete"})
+          .then(res => {
+            if(res.ok){
+              const index = entries.findIndex((element) => {
+                element.id == box.getAttribute('id_box')
+              })
+              entries.splice(index);
+              box.remove();
+            }
+          })
+        })
+      }
+      else{
+
+      }
+    })
+    
+  });
+  
+    
+</script>
   
 </body>
 </html>

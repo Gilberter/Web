@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #f4f4f9;
+  color: #333;
+  min-height: 100vh;
+  box-sizing: border-box;
+  text-align: center;
+  -webkit-font-smoothing: antialiased; /* For smoother fonts on Webkit browsers */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;      /* Horizontal layout */
+  justify-content: space-between;  /* Space between the boxes */
+  align-items: center;      /* Align boxes vertically */
+  width: 80%;               /* Container width (80% of viewport) */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.box {
+  background-color: #817d71;
+  color: #000;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  flex: 1;
+  margin: 10px;
+}
